@@ -5,7 +5,7 @@
     "description": "Lidl – jedzenie i środki czystości",
     "amount": 132.50,
     "date": "2025-03-22",
-    "category": "Żywność"
+    "category": "grocery"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "description": "Komunikacja miejska ZTM",
     "amount": 110.00,
     "date": "2025-03-01",
-    "category": "Transport"
+    "category": "transport"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "description": "Strzyżenie i modelowanie",
     "amount": 70.00,
     "date": "2025-03-15",
-    "category": "Usługi"
+    "category": "services"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "description": "Starbucks – latte i ciastko",
     "amount": 28.90,
     "date": "2025-03-20",
-    "category": "Jedzenie na mieście"
+    "category": "food"
   },
   {
     "id": 5,
@@ -37,6 +37,6 @@
     "description": "„Człowiek w poszukiwaniu sensu” – Viktor Frankl",
     "amount": 45.00,
     "date": "2025-03-18",
-    "category": "Edukacja"
+    "category": "education"
   }
 ]
