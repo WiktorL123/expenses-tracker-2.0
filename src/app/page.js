@@ -3,6 +3,7 @@ import ExpensesList from "@/components/ExpensesList";
 import Header from "@/components/Header";
 import ExpensesAmountSummary from "@/components/ExpensesAmountSummary";
 import {useExpense} from "@/context/ExpenseContext";
+import ExpenseForm from "@/components/ExpenseForm";
 
 export default function Home() {
 
@@ -18,7 +19,14 @@ export default function Home() {
         <h1 className={'text-center my-4 text-xl'}>
             Śledzenie wydatków
         </h1>
-          {activeView==='expenses' && <ExpensesList/>}
+
+          {activeView==='expenses' && (
+              <>
+                  <ExpenseForm/>
+                  <ExpensesList/>
+              </>
+
+          )}
           {activeView==='summary' && <ExpensesAmountSummary/>}
       </div>
   );

@@ -4,13 +4,13 @@ import {useExpense} from "@/context/ExpenseContext";
 
 export default function  ExpenseItem ({ expense }) {
 
-    const {categories, removeExpense} = useExpense()
+
+    const {categories, removeExpense, handleStartEditingExpense} = useExpense()
     const category = categories[expense.category] || {
         label: "Nieznana kategoria",
         icon: "❓",
         color: "#9CA3AF"
     };
-
 
 
 
@@ -24,8 +24,8 @@ export default function  ExpenseItem ({ expense }) {
             <p>{expense.date}</p>
             <p>{category.label}</p>
             <span className={'flex-row flex justify-center'}>
-                <span className={'px-2 py-2 bg-red-500 cursor-pointer mr-2'} onClick={() => removeExpense(expense.id)}><FaTrash /></span>
-                <span className={'px-2 py-2 bg-green-500 cursor-pointer ml-2'}><FaPencil /></span>
+                <span className={'px-2 py-2 bg-red-500 cursor-pointer mr-2'}   onClick={() => removeExpense(expense.id)}><FaTrash /></span>
+                <span className={'px-2 py-2 bg-green-500 cursor-pointer ml-2'} onClick={()=>  handleStartEditingExpense(expense)}  ><FaPencil /></span>
             </span>
         </div>
     )

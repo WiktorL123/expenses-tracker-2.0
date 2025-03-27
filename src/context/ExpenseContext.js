@@ -11,19 +11,34 @@ export default function ExpenseProvider({children}) {
     const [expenses, setExpenses] = useState([]);
     const [activeView, setActiveView] = useState('expenses');
     const [selectedSummaryCategory, setSelectedSummaryCategory] = useState('all');
+    const [editingExpense, setEditingExpense] = useState(null);
 
 
-    const handleSelectSummaryCategory = (e) => {
-        setSelectedSummaryCategory(e.target.value);
-
+    const addExpense = (newExpense)=>{
+        setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+    }
+    const editExpense = (editingExpense)=>{
+        setExpenses(prev=>{
+            prev.map(expense=>expense.id === editingExpense.id ? editingExpense : expense)
+        })
     }
 
+    const handleStartEditingExpense = (expense) => {
+        setEditingExpense(expense);
+    }
+    const handleClearEditingExpense = () => {
+        setEditingExpense(null);
+    }
 
     const removeExpense = useCallback((id) => {
         setExpenses(prev=>prev.filter(item => item.id !== id))
     }, [])
 
 
+    const handleSelectSummaryCategory = (e) => {
+        setSelectedSummaryCategory(e.target.value);
+
+    }
 
     const handleIsActive = (view) => {
         setActiveView(view);
@@ -52,11 +67,16 @@ export default function ExpenseProvider({children}) {
         expenses,
         activeView,
         selectedSummaryCategory,
+        editingExpense,
         categories,
         handleSelectSummaryCategory,
         handleIsActive,
         removeExpense,
+        addExpense,
+        editExpense,
         fetchData,
+        handleStartEditingExpense,
+        handleClearEditingExpense,
 
     }}>{children}
     </ExpenseContext.Provider>;
