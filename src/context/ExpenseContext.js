@@ -1,5 +1,6 @@
 "use client"
-import {createContext, useContext, useState} from "react";
+import {createContext, useCallback, useContext, useState} from "react";
+import categories from "@/data/categories";
 
 export const ExpenseContext = createContext(null);
 
@@ -8,7 +9,7 @@ export default function ExpenseProvider({children}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [expenses, setExpenses] = useState([]);
-    const [ActiveView, setActiveView] = useState('expenses');
+    const [activeView, setActiveView] = useState('expenses');
     const [selectedSummaryCategory, setSelectedSummaryCategory] = useState('all');
 
 
@@ -17,9 +18,11 @@ export default function ExpenseProvider({children}) {
 
     }
 
-    const removeExpense = (id) => {
+
+    const removeExpense = useCallback((id) => {
         setExpenses(prev=>prev.filter(item => item.id !== id))
-    }
+    }, [])
+
 
 
     const handleIsActive = (view) => {
@@ -48,8 +51,9 @@ export default function ExpenseProvider({children}) {
         loading,
         error,
         expenses,
-        ActiveView,
+        activeView,
         selectedSummaryCategory,
+        categories,
         handleSelectSummaryCategory,
         handleIsActive,
         removeExpense,

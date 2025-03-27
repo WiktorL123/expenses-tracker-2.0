@@ -1,4 +1,8 @@
-export default function CategorySelector({categories, onChange, selectedCategory}) {
+import {useExpense} from "@/context/ExpenseContext";
+
+export default function CategorySelector({ onChange, selectedCategory}) {
+    const { categories } = useExpense()
+
     return (
         <div>
             <select
