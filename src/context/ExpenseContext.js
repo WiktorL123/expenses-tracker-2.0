@@ -36,7 +36,6 @@ export default function ExpenseProvider({children}) {
             }
             const data = await response.json();
             setExpenses(data);
-
         }
         catch (error) {
             setError(error);

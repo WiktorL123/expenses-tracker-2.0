@@ -14,7 +14,7 @@ export default function ExpensesAmountSummary(){
 
     return (
         <div>
-            <CategorySelector  onChange = {handleSelectSummaryCategory} selectedCategory={selectedSummaryCategory}/>
+            <CategorySelector  onChange ={handleSelectSummaryCategory} selectedCategory={selectedSummaryCategory}/>
             <div className={'text-center'}>Łączne wydatki: {total} zł</div>
         </div>
     )
