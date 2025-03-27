@@ -4,50 +4,18 @@ import ExpensesList from "@/components/ExpensesList";
 import Header from "@/components/Header";
 import ExpensesAmountSummary from "@/components/ExpensesAmountSummary";
 import categories from "@/data/categories";
+import {useExpense} from "@/context/ExpenseContext";
 
 export default function Home() {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [expenses, setExpenses] = useState([]);
-    const [ActiveView, setActiveView] = useState('expenses');
-    const [selectedSummaryCategory, setSelectedSummaryCategory] = useState('all');
 
-    const handleSelectSummaryCategory = (e) => {
-        setSelectedSummaryCategory(e.target.value);
+    const {expenses, fetchData, error, loading, ActiveView, handleIsActive, selectedSummaryCategory, handleSelectSummaryCategory, removeExpense } = useExpense()
 
-    }
-
-    const removeExpense = (id) => {
-        setExpenses(prev=>prev.filter(item => item.id !== id))
-    }
-
-
-    const handleIsActive = (view) => {
-        setActiveView(view);
-    }
-  const fetchData = async () => {
-    try {
-        const response = await fetch("expenses.json");
-        if (!response.ok) {
-            throw new Error("failed to fetch data.");
-        }
-        const data = await response.json();
-        setExpenses(data);
-
-    }
-    catch (error) {
-        setError(error);
-    }
-    finally {
-        setLoading(false);
-    }
-  }
   useEffect(() => {
       fetchData();
   }, [])
     useEffect(() => {
         console.log(selectedSummaryCategory);
-    }),[selectedSummaryCategory]
+    },[selectedSummaryCategory])
     if (error) return <p className={'text-red-500'}> Błą∂: {error.message}</p>;
     if (loading) return <p>Loading...</p>;
 
