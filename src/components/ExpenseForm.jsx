@@ -2,6 +2,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useExpense} from "@/context/ExpenseContext";
 import CategorySelector from "@/components/CategorySelector";
+import {useEffect} from "react";
 export default function ExpenseForm(){
 
     const {categories, editingExpense, addExpense, editExpense, handleClearEditingExpense} = useExpense()
@@ -9,21 +10,22 @@ export default function ExpenseForm(){
     const categoriesNames = Object.keys(categories)
 
     const formik = useFormik({
-        initialValues: {
-            name: editingExpense?.name || '',
-            description: editingExpense?.description || '',
-            amount: editingExpense?.amount || 0,
-            date: editingExpense?.date || new Date().toISOString().slice(0, 10),
-            category: editingExpense?.category || '',
-        },
+        initialValues:
+             {
+                name: "",
+                description: "",
+                amount: 1,
+                date: new Date().toISOString().slice(0, 10),
+                category: '',
+            },
         validationSchema: Yup.object().shape({
             name: Yup.string()
                 .min(3, "Must be at least 3 characters long")
-                .max(20, "Cannot be more than 20 characters long")
+                .max(50, "Cannot be more than 50 characters long")
                 .required('Field is required'),
             description: Yup.string()
                 .min(3, "Must be at least 3 characters long")
-                .max(20, "Cannot be more than 20 characters long")
+                .max(50, "Cannot be more than 50 characters long")
                 .required('Field is required'),
             amount: Yup.number()
                 .positive('Cannot be less than zero')
@@ -48,17 +50,29 @@ export default function ExpenseForm(){
                 addExpense(newExpense)
             }
             else {
-                const editedExpense = {
+
+                const updatedExpense = {
                     ...editingExpense,
                     ...values,
                 }
-                editExpense(editedExpense)
+                editExpense(updatedExpense)
                 handleClearEditingExpense()
             }
 
             formik.resetForm()
         }
     })
+
+    useEffect(() => {
+        formik.setValues({
+            name: editingExpense?.name || '',
+            description: editingExpense?.description || '',
+            amount: editingExpense?.amount || '',
+            date: editingExpense?.date || new Date().toISOString().slice(0, 10),
+            category: editingExpense?.category || ''
+
+            })
+    }, [editingExpense])
 
     return (
         <form

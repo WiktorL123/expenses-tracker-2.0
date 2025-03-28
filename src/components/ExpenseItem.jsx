@@ -1,6 +1,7 @@
 import {FaTrash} from "react-icons/fa";
 import {FaPencil} from "react-icons/fa6";
 import {useExpense} from "@/context/ExpenseContext";
+import {useEffect} from "react";
 
 export default function  ExpenseItem ({ expense }) {
 
@@ -11,6 +12,7 @@ export default function  ExpenseItem ({ expense }) {
         icon: "❓",
         color: "#9CA3AF"
     };
+
 
 
 
