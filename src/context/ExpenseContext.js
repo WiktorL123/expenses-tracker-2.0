@@ -1,5 +1,5 @@
 "use client"
-import {createContext, useCallback, useContext, useState} from "react";
+import {createContext, useCallback, useContext, useEffect, useState} from "react";
 import categories from "@/data/categories";
 
 export const ExpenseContext = createContext(null);
@@ -17,14 +17,19 @@ export default function ExpenseProvider({children}) {
     const addExpense = (newExpense)=>{
         setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
     }
-    const editExpense = (editingExpense)=>{
-        setExpenses(prev=>{
-            prev.map(expense=>expense.id === editingExpense.id ? editingExpense : expense)
-        })
-    }
+    const editExpense = (editingExpense) => {
+        setExpenses(prev =>
+            prev.map(expense =>
+                expense.id === editingExpense.id ? editingExpense : expense
+            )
+        );
+        setEditingExpense(null);
+    };
+
 
     const handleStartEditingExpense = (expense) => {
         setEditingExpense(expense);
+        console.log(editingExpense)
     }
     const handleClearEditingExpense = () => {
         setEditingExpense(null);
@@ -59,7 +64,9 @@ export default function ExpenseProvider({children}) {
             setLoading(false);
         }
     }
-
+    useEffect(() => {
+        console.log(editingExpense)
+    }, [editingExpense]);
 
     return <ExpenseContext.Provider value={{
         loading,

@@ -10,9 +10,6 @@ export default function Home() {
 
     const { activeView } = useExpense()
 
-
-
-
     return (
 
       <div className={'bg-gray-200'}>
