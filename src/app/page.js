@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import ExpensesAmountSummary from "@/components/ExpensesAmountSummary";
 import {useExpense} from "@/context/ExpenseContext";
 import ExpenseForm from "@/components/ExpenseForm";
+import Button from "@/components/Button";
 
 export default function Home() {
 
@@ -24,6 +25,7 @@ export default function Home() {
               <>
                   <ExpenseForm/>
                   <ExpensesList/>
+
               </>
 
           )}

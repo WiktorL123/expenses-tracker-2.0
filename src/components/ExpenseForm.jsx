@@ -2,11 +2,13 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {useExpense} from "@/context/ExpenseContext";
 import CategorySelector from "@/components/CategorySelector";
+import Button from "@/components/Button";
 export default function ExpenseForm(){
 
     const {categories, editingExpense, addExpense, editExpense, handleClearEditingExpense} = useExpense()
 
     const categoriesNames = Object.keys(categories)
+
 
     const formik = useFormik({
         initialValues: {
@@ -121,14 +123,25 @@ export default function ExpenseForm(){
             />
             {formik.errors.category && formik.touched.category && (<p className={'text-red-500'}> {formik.errors.category} </p>)}
 
-        <button>{editingExpense!==null? 'edytuj wydatek' : 'dodaj wydatek'}</button>
-            {editingExpense!==null &&(<button
-                onClick={() => {
-                    handleClearEditingExpense()
+        {/*<button>{editingExpense!==null? 'edytuj wydatek' : 'dodaj wydatek'}</button>*/}
+        {/*    {editingExpense!==null &&(<button*/}
+        {/*        onClick={() => {*/}
+        {/*            handleClearEditingExpense()*/}
+        {/*            formik.resetForm()*/}
+        {/*        }}*/}
+        {/*        type='button'*/}
+        {/*    >anuluj</button>)}*/}
+            <Button
+                editingExpense={editingExpense}
+
+            />
+            {editingExpense !== null && (<Button
+                children={'anuluj'}
+                onClick={()=>{
+                    handleClearEditingExpense();
                     formik.resetForm()
                 }}
-                type='button'
-            >anuluj</button>)}
+            />)}
         </form>
     )
 }
