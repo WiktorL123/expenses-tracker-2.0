@@ -6,6 +6,7 @@ import CategorySelector from "@/components/CategorySelector";
 import Button from "@/components/Button";
 
 import {useEffect} from "react";
+import Input from "@/components/Input";
 
 export default function ExpenseForm(){
 
@@ -83,53 +84,57 @@ export default function ExpenseForm(){
         <form
             onSubmit={formik.handleSubmit}
         >
-            <label htmlFor="name"> Nazwa</label>
-            <input
-                id='name'
-                name='name'
-                type='text'
-                placeholder='kurs react'
+            <Input
+                id={'name'}
+                name={'name'}
+                type={'text'}
+                placeholder={'kurs'}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
-              />
-            {formik.errors.name && formik.touched.name && (<p className={'text-red-500'}> {formik.errors.name} </p>)}
+                error={formik.errors.name}
+                touched={formik.touched.name}
+                label={'nazwa'}
 
-            <label htmlFor='description'></label>
-            <input
-                id='description'
-                name='description'
-                type='text'
-                placeholder='mam nadzieje że się czegoś nauczę'
+            />
+
+            <Input
+                id={'description'}
+                name={'description'}
+                type={'text'}
+                placeholder={'promocja sie nie dlugo konczy'}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.description}
+                error={formik.errors.description}
+                touched={formik.touched.description}
+                label={'opis'}
             />
-            {formik.errors.description && formik.touched.description && (<p className={'text-red-500'}> {formik.errors.description} </p>)}
 
-            <label htmlFor="amount"></label>
-            <input
-                id='amount'
-                name='amount'
-                type='number'
-                placeholder='69'
+            <Input
+                id={'amount'}
+                name={'amount'}
+                type={'number'}
+                placeholder={'1'}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.amount}
+                error={formik.errors.amount}
+                touched={formik.touched.amount}
+                label={'kwota'}
             />
 
-            {formik.errors.amount && formik.touched.amount && (<p className={'text-red-500'}> {formik.errors.amount} </p>)}
-
-            <label htmlFor="date"></label>
-            <input
-                id='date'
-                name='date'
-                type='date'
+            <Input
+                id={'date'}
+                name={'date'}
+                type={'date'}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.date}
+                error={formik.errors.date}
+                touched={formik.touched.date}
+                label={'data'}
             />
-            {formik.errors.date && formik.touched.date && (<p className={'text-red-500'}> {formik.errors.date} </p>)}
 
 
             <CategorySelector
