@@ -1,9 +1,10 @@
-export default function Button({editingExpense, onClick, }) {
+
+
+export default function Button({ onClick, children }) {
     return (
-        <button
-            className={`border-1 rounded-xl p-2 m-2 text-sm}`}
-            onClick={onClick}
-        >
-            {editingExpense ? 'edytuj wydatek' : 'dodaj wydatek'}</button>
+<button className={'border-1 rounded-xl p-2 m-2 text-sm'}>
+            {children}
+</button>
+
     )
 }

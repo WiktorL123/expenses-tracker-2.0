@@ -1,6 +1,8 @@
-import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 import ExpenseProvider from "@/context/ExpenseContext";
+import UIProvider from "@/context/UIContext";
+
 
 
 export default function RootLayout({ children }) {
@@ -10,7 +12,9 @@ export default function RootLayout({ children }) {
         className={'bg-gray-200'}
       >
       <ExpenseProvider>
-            {children}
+          <UIProvider>
+              {children}
+          </UIProvider>
       </ExpenseProvider>
       </body>
     </html>

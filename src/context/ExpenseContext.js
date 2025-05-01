@@ -9,7 +9,6 @@ export default function ExpenseProvider({children}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [expenses, setExpenses] = useState([]);
-    const [activeView, setActiveView] = useState('expenses');
     const [selectedSummaryCategory, setSelectedSummaryCategory] = useState('all');
     const [editingExpense, setEditingExpense] = useState(null);
 
@@ -45,9 +44,7 @@ export default function ExpenseProvider({children}) {
 
     }
 
-    const handleIsActive = (view) => {
-        setActiveView(view);
-    }
+
     const fetchData = async () => {
         try {
             const response = await fetch("expenses.json");
@@ -68,16 +65,22 @@ export default function ExpenseProvider({children}) {
         console.log(editingExpense)
     }, [editingExpense]);
 
+
+    useEffect(() => {
+        if (!loading && expenses.length > 0) {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+        }
+    }, [expenses, loading])
+
+
     return <ExpenseContext.Provider value={{
         loading,
         error,
         expenses,
-        activeView,
         selectedSummaryCategory,
         editingExpense,
         categories,
         handleSelectSummaryCategory,
-        handleIsActive,
         removeExpense,
         addExpense,
         editExpense,

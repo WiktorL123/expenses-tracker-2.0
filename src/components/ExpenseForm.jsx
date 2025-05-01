@@ -146,16 +146,18 @@ export default function ExpenseForm(){
             {formik.errors.category && formik.touched.category && (<p className={'text-red-500'}> {formik.errors.category} </p>)}
 
 
-            <Button
-                editingExpense={editingExpense}
+            <Button>
+                {editingExpense ? 'edytuj wydatek' : 'dodaj wydatek'}
+            </Button>
+            {editingExpense && (
+                <Button
+                children={'anuluj edycje '}
 
-            />
-            {editingExpense !== null && (<Button
-                children={'anuluj'}
                 onClick={()=>{
                     handleClearEditingExpense();
                     formik.resetForm()
                 }}
+
             />)}
         </form>
     )

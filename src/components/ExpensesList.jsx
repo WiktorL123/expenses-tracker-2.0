@@ -1,13 +1,23 @@
 import ExpenseItem from "@/components/ExpenseItem";
 import {useExpense} from "@/context/ExpenseContext";
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
+import {useUI} from "@/context/UIContext";
 
 export default function ExpensesList() {
     const {expenses, fetchData, error, loading} = useExpense()
+    const {activeCategory} = useUI()
+
 
     useEffect(() => {
         fetchData();
     }, [])
+
+
+
+   const filteredExpenses =  useMemo(() => {
+        if (activeCategory==='all') return expenses
+        return expenses.filter(expense =>expense.category === activeCategory)
+    }, [expenses, activeCategory])
 
 
 
@@ -17,7 +27,9 @@ export default function ExpensesList() {
     return (
         <>
             <div className={'flex flex-row flex-wrap'}>
-                {expenses.map(expense=>
+
+                {filteredExpenses.map(expense=>
+
                     <ExpenseItem key={expense.id} expense={expense}/>
                 )}
             </div>

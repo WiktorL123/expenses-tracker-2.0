@@ -2,13 +2,16 @@
 import ExpensesList from "@/components/ExpensesList";
 import Header from "@/components/Header";
 import ExpensesAmountSummary from "@/components/ExpensesAmountSummary";
-import {useExpense} from "@/context/ExpenseContext";
 import ExpenseForm from "@/components/ExpenseForm";
-import Button from "@/components/Button";
+import FilterPanel from "@/components/FilterPanel";
+import {useUI} from "@/context/UIContext";
+
+
 
 export default function Home() {
 
-    const { activeView } = useExpense()
+    const { activeView } = useUI()
+
 
     return (
 
@@ -20,8 +23,11 @@ export default function Home() {
 
           {activeView==='expenses' && (
               <>
+
+                  <FilterPanel/>
                   <ExpenseForm/>
                   <ExpensesList/>
+
 
               </>
 
