@@ -2,22 +2,27 @@ import CategorySelector from "@/components/CategorySelector";
 import {useExpense} from "@/context/ExpenseContext";
 import {useUI} from "@/context/UIContext";
 import {useEffect} from "react";
+import Input from "@/components/Input";
 
 export default function FilterPanel(){
 
-    const {activeCategory, handleCategoryChange} = useUI();
+    const {activeFilterCategory, handleCategoryChange, handleQueryChange, searchQuery} = useUI();
+    useEffect(()=>{
+        console.log('query: ',searchQuery )
+    }, [searchQuery])
 
-
-    useEffect(() => {
-        console.log('kategoria w filtach', activeCategory);
-    }, [activeCategory]);
     return (
-        <div>
-            filtracja po kategori
+        <div className={'border-1 flex flex-col items-center justify-center'}>
+            <h1>filtruj wydatki</h1>
+            <p>według kategorii</p>
             <CategorySelector
-                selectedCategory={activeCategory}
+                selectedCategory={activeFilterCategory}
                 onChange={handleCategoryChange}
             />
+            <h1>lub wyszukaj po nazwie</h1>
+            <Input
+            placeholder={'kategoria lub opis'}
+            onChange={handleQueryChange}/>
         </div>
     )
 }

@@ -46,24 +46,29 @@ export default function ExpenseProvider({children}) {
 
 
     const fetchData = async () => {
-        try {
-            const response = await fetch("expenses.json");
-            if (!response.ok) {
-                throw new Error("failed to fetch data.");
-            }
-            const data = await response.json();
-            setExpenses(data);
-        }
-        catch (error) {
-            setError(error);
-        }
-        finally {
+        const local =  localStorage.getItem("expenses");
+        if (local) {
+            setExpenses(JSON.parse(local));
             setLoading(false);
         }
+        else {
+            try {
+                const response = await fetch("expenses.json");
+                if (!response.ok) {
+                    throw new Error("failed to fetch data.");
+                }
+                const data = await response.json();
+                setExpenses(data);
+            }
+            catch (error) {
+                setError(error);
+            }
+            finally {
+                setLoading(false);
+            }
+        }
     }
-    useEffect(() => {
-        console.log(editingExpense)
-    }, [editingExpense]);
+
 
 
     useEffect(() => {

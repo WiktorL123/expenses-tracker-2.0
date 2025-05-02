@@ -2,10 +2,12 @@ import ExpenseItem from "@/components/ExpenseItem";
 import {useExpense} from "@/context/ExpenseContext";
 import {useEffect, useMemo} from "react";
 import {useUI} from "@/context/UIContext";
+import {useDebounce} from "@/hooks/useDebounce";
 
 export default function ExpensesList() {
     const {expenses, fetchData, error, loading} = useExpense()
-    const {activeCategory} = useUI()
+    const {activeFilterCategory, searchQuery} = useUI()
+    const debouncedSearch = useDebounce(searchQuery, 300)
 
 
     useEffect(() => {
@@ -14,10 +16,16 @@ export default function ExpensesList() {
 
 
 
-   const filteredExpenses =  useMemo(() => {
-        if (activeCategory==='all') return expenses
-        return expenses.filter(expense =>expense.category === activeCategory)
-    }, [expenses, activeCategory])
+    const filteredExpenses = useMemo(() => {
+        return expenses
+            .filter(expense =>
+                activeFilterCategory === 'all' || expense.category === activeFilterCategory
+            )
+            .filter(expense =>
+                expense.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+            );
+    }, [expenses, activeFilterCategory, debouncedSearch]);
+
 
 
 

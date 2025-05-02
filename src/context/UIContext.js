@@ -11,6 +11,7 @@ const UIContext = createContext(null);
 export default function UIProvider({children}) {
     const [activeView, setActiveView] = useState('expenses')
     const [activeFilterCategory, setActiveFilterCategory] = useState('all')
+    const [searchQuery, setSearchQuery] = useState('')
 
     const handleActiveView = (view) => {
         setActiveView(view);
@@ -18,13 +19,18 @@ export default function UIProvider({children}) {
     const handleCategoryChange = (e) =>{
         setActiveFilterCategory(e.target.value)
     }
+    const handleQueryChange = (e) =>{
+        setSearchQuery(e.target.value)
+    }
     return (
         <UIContext.Provider
             value={{
                 activeView,
-                activeCategory: activeFilterCategory,
+                searchQuery,
+                activeFilterCategory,
                 handleActiveView,
                 handleCategoryChange,
+                handleQueryChange
             }}
         >
             {children}
