@@ -21,7 +21,7 @@ export default function FilterPanel(){
             />
             <h1>lub wyszukaj po nazwie</h1>
             <Input
-            placeholder={'kategoria lub opis'}
+            placeholder={'nazwa produktu'}
             onChange={handleQueryChange}/>
         </div>
     )

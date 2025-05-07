@@ -7,7 +7,7 @@ import {useDebounce} from "@/hooks/useDebounce";
 export default function ExpensesList() {
     const {expenses, fetchData, error, loading} = useExpense()
     const {activeFilterCategory, searchQuery} = useUI()
-    const debouncedSearch = useDebounce(searchQuery, 300)
+   // const debouncedSearch = useDebounce(searchQuery, 300) <- dobre do żądań API pozwala nałożyć opóźnienie
 
 
     useEffect(() => {
@@ -22,9 +22,9 @@ export default function ExpensesList() {
                 activeFilterCategory === 'all' || expense.category === activeFilterCategory
             )
             .filter(expense =>
-                expense.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+                expense.name.toLowerCase().includes(searchQuery.toLowerCase())
             );
-    }, [expenses, activeFilterCategory, debouncedSearch]);
+    }, [expenses, activeFilterCategory, searchQuery]);
 
 
 
